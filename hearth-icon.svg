@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="flame" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b35"/>
+      <stop offset="50%" stop-color="#f7931e"/>
+      <stop offset="100%" stop-color="#ffd23f"/>
+    </linearGradient>
+    <linearGradient id="flameInner" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff4500"/>
+      <stop offset="100%" stop-color="#ffae42"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer flame shape -->
+  <path d="M 128 40
+           C 128 40, 88 80, 88 130
+           C 88 170, 108 200, 128 210
+           C 148 200, 168 170, 168 130
+           C 168 80, 128 40, 128 40 Z"
+        fill="url(#flame)"/>
+
+  <!-- Inner flame -->
+  <path d="M 128 80
+           C 128 80, 108 110, 108 145
+           C 108 170, 118 190, 128 195
+           C 138 190, 148 170, 148 145
+           C 148 110, 128 80, 128 80 Z"
+        fill="url(#flameInner)"/>
+
+  <!-- Core node -->
+  <circle cx="128" cy="150" r="12" fill="#1a1a2e" opacity="0.85"/>
+
+  <!-- Connection dots -->
+  <circle cx="100" cy="120" r="4" fill="#1a1a2e" opacity="0.6"/>
+  <circle cx="156" cy="120" r="4" fill="#1a1a2e" opacity="0.6"/>
+  <circle cx="128" cy="180" r="4" fill="#1a1a2e" opacity="0.6"/>
+
+  <!-- Subtle connecting lines -->
+  <line x1="100" y1="120" x2="128" y2="150" stroke="#1a1a2e" stroke-width="1.5" opacity="0.4"/>
+  <line x1="156" y1="120" x2="128" y2="150" stroke="#1a1a2e" stroke-width="1.5" opacity="0.4"/>
+  <line x1="128" y1="180" x2="128" y2="150" stroke="#1a1a2e" stroke-width="1.5" opacity="0.4"/>
+</svg>

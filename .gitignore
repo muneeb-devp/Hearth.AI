@@ -1,0 +1,56 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.cache
+*.orig
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/packages/
+packages/
+
+# Visual Studio
+.vs/
+*.vsidx
+*.tmp
+*.pidb
+*.svclog
+
+# Rider / IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Test results
+[Tt]est[Rr]esults/
+coverage.cobertura.xml
+coverage.json
+*.coverage
+
+# .NET runtime
+*.runtimeconfig.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model files — large binaries not suitable for version control
+*.gguf
+*.ggml
+*.bin
+*.safetensors
+*.pt
+*.ckpt
+
+# Local secrets / env overrides
+.env
+*.local
+appsettings.Local.json
+appsettings.Development.json
