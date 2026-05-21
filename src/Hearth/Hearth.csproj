@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <RootNamespace>Hearth</RootNamespace>
+    <AssemblyName>Hearth</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <PackageId>Hearth.AI</PackageId>
+    <Description>A batteries-included local LLM inference library for .NET. Drop-in Microsoft.Extensions.AI IChatClient backed by LLamaSharp — run GGUF models locally with a single AddHearth() call.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LLamaSharp" />
+    <PackageReference Include="Microsoft.Extensions.AI.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Hearth.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="." />
+    <None Include="..\..\hearth-icon.svg" Pack="true" PackagePath="." />
+  </ItemGroup>
+
+</Project>
