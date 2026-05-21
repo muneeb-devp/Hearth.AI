@@ -54,3 +54,8 @@ Thumbs.db
 *.local
 appsettings.Local.json
 appsettings.Development.json
+
+# DocFX build artifacts
+docs/_site/
+docs/api/.manifest
+docs/api/*.yml

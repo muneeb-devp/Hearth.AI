@@ -8,6 +8,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Build](https://img.shields.io/github/actions/workflow/status/muneeb-devp/Hearth.AI/ci.yml?branch=main)](https://github.com/muneeb-devp/Hearth.AI/actions)
 
+**Docs:** [muneeb-devp.github.io/Hearth.AI](https://muneeb-devp.github.io/Hearth.AI/)
+
 Run any GGUF language model locally in a .NET 8/9 app with a **single line of registration**:
 
 ```csharp
@@ -498,6 +500,10 @@ dotnet test
 
 # Run the console sample (requires a local GGUF)
 dotnet run --project samples/Hearth.Samples.Console -- /path/to/model.gguf
+
+# Build the docs site
+dotnet tool restore
+dotnet docfx docs/docfx.json
 ```
 
 Code style is enforced by `.editorconfig` and `EnforceCodeStyleInBuild=true`. CI will reject PRs with style warnings.

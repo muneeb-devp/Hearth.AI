@@ -15,7 +15,7 @@ public static class HearthEndpointRouteBuilderExtensions
     /// </list>
     /// </summary>
     /// <remarks>
-    /// <see cref="IChatClient"/> and <see cref="IEmbeddingGenerator{TInput,TEmbedding}"/> must be
+    /// <c>IChatClient</c> and <c>IEmbeddingGenerator&lt;string, Embedding&lt;float&gt;&gt;</c> must be
     /// registered in the DI container before calling this method — typically via
     /// <c>services.AddHearth(…)</c> from the <c>Hearth</c> package.
     /// </remarks>
