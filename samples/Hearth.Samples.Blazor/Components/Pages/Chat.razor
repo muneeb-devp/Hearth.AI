@@ -1,0 +1,124 @@
+@page "/"
+@rendermode InteractiveServer
+@inject IChatClient ChatClient
+@implements IAsyncDisposable
+
+<PageTitle>Hearth Chat</PageTitle>
+
+<div class="chat-container">
+    <div class="messages" id="messages">
+        @foreach (var msg in _displayMessages)
+        {
+            <div class="message @(msg.Role == "user" ? "user" : "assistant")">
+                <div class="bubble">@msg.Text</div>
+            </div>
+        }
+
+        @if (_streamingText is not null)
+        {
+            <div class="message assistant">
+                <div class="bubble streaming">@_streamingText<span class="cursor">&#9646;</span></div>
+            </div>
+        }
+    </div>
+
+    <form class="input-bar" @onsubmit="SendAsync">
+        <textarea
+            class="input-box"
+            placeholder="Type a message… (Enter to send, Shift+Enter for newline)"
+            @bind="_userInput"
+            @bind:event="oninput"
+            @onkeydown="HandleKeyDown"
+            disabled="@_isGenerating"
+            rows="1"></textarea>
+        <button type="submit" class="send-btn" disabled="@(_isGenerating || string.IsNullOrWhiteSpace(_userInput))">
+            @if (_isGenerating)
+            {
+                <span>&#9632;</span>
+            }
+            else
+            {
+                <span>&#9654;</span>
+            }
+        </button>
+    </form>
+</div>
+
+@code {
+    private record DisplayMessage(string Role, string Text);
+
+    private readonly List<ChatMessage> _history = [new(ChatRole.System, "You are a helpful, concise assistant.")];
+    private readonly List<DisplayMessage> _displayMessages = [];
+
+    private string _userInput = string.Empty;
+    private string? _streamingText;
+    private bool _isGenerating;
+    private CancellationTokenSource? _cts;
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !e.ShiftKey && !_isGenerating && !string.IsNullOrWhiteSpace(_userInput))
+        {
+            await SendAsync();
+        }
+    }
+
+    private async Task SendAsync()
+    {
+        if (_isGenerating || string.IsNullOrWhiteSpace(_userInput))
+            return;
+
+        var text = _userInput.Trim();
+        _userInput = string.Empty;
+        _isGenerating = true;
+        _cts = new CancellationTokenSource();
+
+        _history.Add(new ChatMessage(ChatRole.User, text));
+        _displayMessages.Add(new DisplayMessage("user", text));
+        _streamingText = string.Empty;
+
+        StateHasChanged();
+
+        var response = new System.Text.StringBuilder();
+
+        try
+        {
+            await foreach (var update in ChatClient.GetStreamingResponseAsync(_history, cancellationToken: _cts.Token))
+            {
+                var token = update.Text ?? string.Empty;
+                response.Append(token);
+                _streamingText = response.ToString();
+                StateHasChanged();
+                await Task.Yield();
+            }
+
+            var assistantText = response.ToString().Trim();
+            _history.Add(new ChatMessage(ChatRole.Assistant, assistantText));
+            _displayMessages.Add(new DisplayMessage("assistant", assistantText));
+        }
+        catch (OperationCanceledException)
+        {
+            if (response.Length > 0)
+            {
+                _displayMessages.Add(new DisplayMessage("assistant", response.ToString().TrimEnd() + " [stopped]"));
+            }
+        }
+        finally
+        {
+            _streamingText = null;
+            _isGenerating = false;
+            _cts?.Dispose();
+            _cts = null;
+            StateHasChanged();
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_cts is not null)
+        {
+            await _cts.CancelAsync();
+            _cts.Dispose();
+        }
+    }
+}
