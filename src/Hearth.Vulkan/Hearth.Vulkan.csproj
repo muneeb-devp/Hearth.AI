@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <RootNamespace>Hearth.Vulkan</RootNamespace>
+    <AssemblyName>Hearth.Vulkan</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <PackageId>Hearth.AI.Vulkan</PackageId>
+    <Description>Vulkan GPU backend for Hearth. Install this package instead of the base Hearth package to enable GPU-accelerated inference on AMD, Intel, and other Vulkan-capable GPUs.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hearth\Hearth.csproj" />
+    <PackageReference Include="LLamaSharp.Backend.Vulkan" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="." />
+    <None Include="..\..\hearth-icon.svg" Pack="true" PackagePath="." />
+  </ItemGroup>
+
+</Project>

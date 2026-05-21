@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <RootNamespace>Hearth.Metal</RootNamespace>
+    <AssemblyName>Hearth.Metal</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <PackageId>Hearth.AI.Metal</PackageId>
+    <Description>Apple Metal GPU backend for Hearth. Install this package instead of the base Hearth package to enable GPU-accelerated inference on Apple Silicon (M1/M2/M3/M4) and Intel Macs with AMD GPUs.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hearth\Hearth.csproj" />
+    <!--
+      Metal support is built into the base LLamaSharp package on macOS (0.13+).
+      No separate backend reference is needed — installing this package signals intent
+      and ensures the correct GpuLayers advice applies.
+    -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="." />
+    <None Include="..\..\hearth-icon.svg" Pack="true" PackagePath="." />
+  </ItemGroup>
+
+</Project>

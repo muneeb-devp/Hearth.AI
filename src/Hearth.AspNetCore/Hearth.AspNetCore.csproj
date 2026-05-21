@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <RootNamespace>Hearth.AspNetCore</RootNamespace>
+    <AssemblyName>Hearth.AspNetCore</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <PackageId>Hearth.AI.AspNetCore</PackageId>
+    <Description>ASP.NET Core integration for Hearth — OpenAI-compatible /v1 endpoints (chat completions, embeddings, models) via a single MapHearth() call.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="..\Hearth\Hearth.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Hearth.AspNetCore.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="." />
+    <None Include="..\..\hearth-icon.svg" Pack="true" PackagePath="." />
+  </ItemGroup>
+
+</Project>

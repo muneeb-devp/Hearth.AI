@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <RootNamespace>Hearth.Cuda</RootNamespace>
+    <AssemblyName>Hearth.Cuda</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <PackageId>Hearth.AI.Cuda</PackageId>
+    <Description>NVIDIA CUDA 12 GPU backend for Hearth. Install this package instead of the base Hearth package to enable GPU-accelerated inference on CUDA 12-capable NVIDIA hardware.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hearth\Hearth.csproj" />
+    <PackageReference Include="LLamaSharp.Backend.Cuda12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="." />
+    <None Include="..\..\hearth-icon.svg" Pack="true" PackagePath="." />
+  </ItemGroup>
+
+</Project>
