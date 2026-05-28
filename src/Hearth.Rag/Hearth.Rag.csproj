@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <PackageId>Hearth.AI.Rag</PackageId>
+    <IsPackable>true</IsPackable>
+    <Description>RAG (retrieval-augmented generation) pipeline for Hearth.AI — index documents, search by embedding similarity, and generate grounded answers from local LLMs.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hearth\Hearth.csproj" />
+    <PackageReference Include="Microsoft.Data.Sqlite" />
+    <PackageReference Include="HtmlAgilityPack" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Hearth.Rag.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="." />
+    <None Include="..\..\hearth-icon.svg" Pack="true" PackagePath="." />
+  </ItemGroup>
+
+</Project>
