@@ -102,3 +102,29 @@ jobs:
           --api-key "$NUGET_API_KEY"
           --source https://api.nuget.org/v3/index.json
           --skip-duplicate
+
+  ghcr-publish:
+    name: Publish server image
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    permissions:
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: samples/Hearth.Samples.Server/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/muneeb-devp/hearth-server:${{ github.ref_name }}
+            ghcr.io/muneeb-devp/hearth-server:latest
