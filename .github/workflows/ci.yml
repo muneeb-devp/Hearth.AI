@@ -64,11 +64,13 @@ jobs:
         run: dotnet restore
 
       - name: Pack
-        run: >
-          dotnet pack
-          --configuration Release
-          --no-restore
-          --output ./artifacts
+        run: |
+          for proj in src/*/*.csproj templates/Hearth.AI.Templates.csproj; do
+            dotnet pack "$proj" \
+              --configuration Release \
+              --no-restore \
+              --output ./artifacts
+          done
 
       - name: Upload NuGet packages
         uses: actions/upload-artifact@v4
