@@ -1,0 +1,11 @@
+**/.git
+**/.github
+**/.devcontainer
+**/bin
+**/obj
+**/TestResults
+docs/_site
+artifacts
+*.user
+*.suo
+.vs

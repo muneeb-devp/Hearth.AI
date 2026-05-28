@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions (questions and feedback)
+    url: https://github.com/muneeb-devp/Hearth.AI/discussions
+    about: For open-ended questions, "is this the right approach?" type discussions, and sharing what you're building.

@@ -1,0 +1,79 @@
+name: Bug report
+description: Report a reproducible problem with Hearth
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug. Please fill out the fields below so we can reproduce the problem quickly.
+
+  - type: input
+    id: version
+    attributes:
+      label: Hearth version
+      placeholder: "e.g. 0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Which package?
+      options:
+        - Hearth.AI (core)
+        - Hearth.AI.AspNetCore
+        - Hearth.AI.Cuda
+        - Hearth.AI.Metal
+        - Hearth.AI.Vulkan
+        - Hearth.AI.Templates
+        - Multiple / unsure
+    validations:
+      required: true
+
+  - type: input
+    id: runtime
+    attributes:
+      label: .NET version
+      placeholder: "e.g. .NET 9.0.5"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS and architecture
+      placeholder: "e.g. Ubuntu 24.04 x64, macOS 15.1 arm64, Windows 11 x64"
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: Model (if relevant)
+      description: GGUF model filename and quantization, e.g. qwen2.5-7b-instruct-q4_k_m.gguf
+      placeholder: "e.g. llama-3.1-8b-instruct-q4_k_m.gguf"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected to happen instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: |
+        The smallest code snippet that reproduces the issue. Ideally something we can paste into a .cs file and run.
+      render: csharp
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / stack trace
+      description: Paste any relevant exception or log output here.
+      render: text

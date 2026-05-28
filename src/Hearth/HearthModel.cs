@@ -14,7 +14,7 @@ internal sealed class HearthModel : IDisposable
     private readonly LLamaWeights _weights;
 
     internal LLamaWeights Weights => _weights;
-    internal ModelParams ModelParams { get; }
+    private ModelParams ModelParams { get; }
     internal string ModelPath { get; }
 
     private HearthModel(LLamaWeights weights, ModelParams modelParams, string modelPath)

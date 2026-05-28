@@ -12,6 +12,11 @@ Hearth brings local GGUF inference to the standard .NET AI abstractions, so you 
 | Pick the right GPU backend package | [GPU backends](articles/gpu-backends.md) |
 | Explore the sample apps in this repo | [Samples](articles/samples.md) |
 | Browse the public API surface | [API reference](api/index.md) |
+| Swap an existing OpenAI app to local inference | [Replacing OpenAI with Hearth](articles/replacing-openai.md) |
+| Pick the right model and quantization for your hardware | [Choosing the right model](articles/model-selection.md) |
+| Define and invoke tools from .NET methods | [Tool calling](articles/tool-calling.md) |
+| Docker, Kubernetes, performance tuning | [Deploying to production](articles/production.md) |
+| Understand the trade-offs vs Ollama | [Hearth vs Ollama](articles/hearth-vs-ollama.md) |
 
 ## What Hearth includes
 

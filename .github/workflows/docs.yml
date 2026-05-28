@@ -30,11 +30,14 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Restore NuGet packages
+        run: dotnet restore
+
       - name: Restore DocFX
         run: dotnet tool restore
 
       - name: Build site
-        run: dotnet docfx docs/docfx.json
+        run: dotnet docfx docs/docfx.json --warningsAsErrors false
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

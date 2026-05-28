@@ -1,0 +1,104 @@
+### Hearth.AI – quick-start HTTP requests
+### Requires: VS Code REST Client extension (humao.rest-client)
+### Start the sample first:
+###   dotnet run --project samples/Hearth.Samples.Blazor -- ./models/your-model.gguf
+###   (or set HEARTH_MODEL env var and omit the argument)
+
+@baseUrl = http://localhost:5000
+
+# ──────────────────────────────────────────────
+# 1. List available models
+# ──────────────────────────────────────────────
+### GET /v1/models
+GET {{baseUrl}}/v1/models
+Accept: application/json
+
+###
+
+# ──────────────────────────────────────────────
+# 2. Simple chat completion (non-streaming)
+# ──────────────────────────────────────────────
+### POST /v1/chat/completions – single turn
+POST {{baseUrl}}/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "hearth-local",
+  "messages": [
+    { "role": "system", "content": "You are a helpful assistant. Reply concisely." },
+    { "role": "user",   "content": "What is the capital of France?" }
+  ],
+  "temperature": 0.7,
+  "max_tokens": 200
+}
+
+###
+
+# ──────────────────────────────────────────────
+# 3. Multi-turn conversation
+# ──────────────────────────────────────────────
+### POST /v1/chat/completions – multi-turn
+POST {{baseUrl}}/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "hearth-local",
+  "messages": [
+    { "role": "system",    "content": "You are a senior .NET engineer. Be concise." },
+    { "role": "user",      "content": "What is a CancellationToken used for in .NET?" },
+    { "role": "assistant", "content": "A CancellationToken lets callers signal that an operation should be cancelled cooperatively." },
+    { "role": "user",      "content": "Give me a one-line example of passing it to HttpClient." }
+  ],
+  "temperature": 0.3,
+  "max_tokens": 150
+}
+
+###
+
+# ──────────────────────────────────────────────
+# 4. Streaming chat completion (SSE)
+# ──────────────────────────────────────────────
+### POST /v1/chat/completions – streaming (stream: true)
+POST {{baseUrl}}/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "hearth-local",
+  "messages": [
+    { "role": "user", "content": "Write a haiku about local AI inference." }
+  ],
+  "stream": true,
+  "temperature": 0.9,
+  "max_tokens": 80
+}
+
+###
+
+# ──────────────────────────────────────────────
+# 5. Embeddings
+# ──────────────────────────────────────────────
+### POST /v1/embeddings – single string
+POST {{baseUrl}}/v1/embeddings
+Content-Type: application/json
+
+{
+  "model": "hearth-local",
+  "input": "The quick brown fox jumps over the lazy dog"
+}
+
+###
+
+### POST /v1/embeddings – batch
+POST {{baseUrl}}/v1/embeddings
+Content-Type: application/json
+
+{
+  "model": "hearth-local",
+  "input": [
+    "Privacy-first AI inference",
+    "No API keys required",
+    "Runs entirely on your hardware"
+  ]
+}
+
+###

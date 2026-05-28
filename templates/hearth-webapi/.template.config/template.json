@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Hearth.AI",
+  "classifications": ["Web", "API", "AI", "Local LLM"],
+  "identity": "Hearth.AI.WebApi",
+  "name": "Hearth Web API",
+  "shortName": "hearth",
+  "description": "An ASP.NET Core Web API with a local LLM inference endpoint powered by Hearth.AI. Includes OpenAI-compatible /v1/chat/completions and /v1/embeddings endpoints.",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "HearthWebApi",
+  "preferNameDirectory": true,
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        { "choice": "net9.0", "description": ".NET 9.0" },
+        { "choice": "net8.0", "description": ".NET 8.0" }
+      ],
+      "defaultValue": "net9.0",
+      "replaces": "net9.0"
+    },
+    "GpuBackend": {
+      "type": "parameter",
+      "description": "Optional GPU acceleration backend.",
+      "datatype": "choice",
+      "choices": [
+        { "choice": "none",   "description": "CPU only (default)" },
+        { "choice": "cuda",   "description": "NVIDIA CUDA 12" },
+        { "choice": "metal",  "description": "Apple Silicon / Metal" },
+        { "choice": "vulkan", "description": "Vulkan (AMD/Intel)" }
+      ],
+      "defaultValue": "none"
+    },
+    "IncludeCuda": {
+      "type": "computed",
+      "value": "(GpuBackend == \"cuda\")"
+    },
+    "IncludeMetal": {
+      "type": "computed",
+      "value": "(GpuBackend == \"metal\")"
+    },
+    "IncludeVulkan": {
+      "type": "computed",
+      "value": "(GpuBackend == \"vulkan\")"
+    }
+  }
+}

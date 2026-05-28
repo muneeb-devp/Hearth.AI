@@ -4,6 +4,29 @@ All notable changes are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versioning follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.0] – 2026-05-28
+
+### Added
+
+- `AddHearth(Action<HearthOptions>)` — single-call DI registration for `IChatClient` and `IEmbeddingGenerator<string, Embedding<float>>`
+- `HearthOptions` — full configuration for model path, context size, GPU layers, batch size, threads, HuggingFace token, download progress callback
+- `HearthChatClient` — `IChatClient` implementation backed by `StatelessExecutor` (thread-safe; one KV-cache per call)
+- `GetResponseAsync` and `GetStreamingResponseAsync` with per-call `Temperature` and `MaxOutputTokens`
+- Chat template auto-detection (Llama 3, Gemma, Phi-3, ChatML) with per-family anti-prompt tokens
+- Tool calling with automatic agentic loop (up to 5 rounds; respects `ChatToolMode.None`)
+- `IEmbeddingGenerator<string, Embedding<float>>` backed by `LLamaEmbedder`
+- `HuggingFaceClient` — resumable download with `Range` header, atomic rename, SHA-256 verify
+- `QuantizationSelector` — preference-ranked GGUF file selection (`Q4_K_M > Q5_K_M > …`)
+- `ModelResolver` — local path vs. HuggingFace repo-ID detection + cache at `~/.hearth/models`
+- `Hearth.AI.AspNetCore` — `MapHearth()` exposes `POST /v1/chat/completions` (streaming + non-streaming SSE), `POST /v1/embeddings`, `GET /v1/models`
+- `Hearth.AI.Cuda`, `Hearth.AI.Metal`, `Hearth.AI.Vulkan` — optional GPU backend shims
+- `Hearth.AI.Templates` — `dotnet new hearth` project template (Web API with `AddHearth` + `MapHearth`, optional `--gpu-backend` flag)
+- Console sample (`hearth-chat`) and Blazor Server streaming chat sample
+- GitHub Actions CI (build + test on .NET 8 and 9, pack, publish to NuGet on push/tag)
+- DocFX documentation site deployed to GitHub Pages
+- GitHub Codespaces `devcontainer.json`, `samples/try-it.http` (VS Code REST Client), `Dockerfile` for local demo
+- 96 unit and integration tests; all CI checks pass on .NET 8 and 9
+
 ## [Unreleased]
 
 ### Phase 1 — Core inference (current)

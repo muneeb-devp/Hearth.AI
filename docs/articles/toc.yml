@@ -8,3 +8,15 @@
   href: gpu-backends.md
 - name: Samples
   href: samples.md
+- name: Guides
+  items:
+  - name: Replacing OpenAI with Hearth
+    href: replacing-openai.md
+  - name: Choosing the right model
+    href: model-selection.md
+  - name: Tool calling
+    href: tool-calling.md
+  - name: Deploying to production
+    href: production.md
+  - name: Hearth vs Ollama
+    href: hearth-vs-ollama.md

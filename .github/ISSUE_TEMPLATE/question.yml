@@ -1,0 +1,28 @@
+name: Question
+description: Ask a question about using Hearth
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For quick questions, [GitHub Discussions](../../discussions) is often faster. Use this form when your question is detailed enough that it might become documentation or a bug report.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What are you trying to do or understand?
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: Share any code, docs, or Stack Overflow answers you already looked at.
+
+  - type: input
+    id: version
+    attributes:
+      label: Hearth version
+      placeholder: "e.g. 0.1.0"
