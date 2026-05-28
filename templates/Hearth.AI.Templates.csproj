@@ -21,6 +21,7 @@
   <ItemGroup>
     <Content Include="hearth-webapi\**\*" Exclude="hearth-webapi\**\bin\**;hearth-webapi\**\obj\**" />
     <Compile Remove="**\*" />
+    <None Include="..\README.md" Pack="true" PackagePath="." />
   </ItemGroup>
 
 </Project>
