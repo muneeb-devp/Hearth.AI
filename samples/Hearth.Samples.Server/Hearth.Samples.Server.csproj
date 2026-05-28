@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Hearth.Samples.Server</RootNamespace>
+    <AssemblyName>Hearth.Samples.Server</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Hearth\Hearth.csproj" />
+    <ProjectReference Include="..\..\src\Hearth.AspNetCore\Hearth.AspNetCore.csproj" />
+  </ItemGroup>
+
+</Project>

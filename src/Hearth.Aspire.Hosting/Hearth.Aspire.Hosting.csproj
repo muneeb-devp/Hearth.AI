@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <PackageId>Hearth.AI.Aspire.Hosting</PackageId>
+    <IsPackable>true</IsPackable>
+    <Description>Aspire hosting integration for Hearth.AI — adds a Hearth inference server as an Aspire resource with one AddHearth() call.</Description>
+    <PackageTags>llm;ai;inference;llama;gguf;local-ai;aspire;ichatclient;llamasharp</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Hearth.Aspire.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="." />
+    <None Include="..\..\hearth-icon.svg" Pack="true" PackagePath="." />
+  </ItemGroup>
+
+</Project>
