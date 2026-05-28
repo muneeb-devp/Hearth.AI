@@ -7,19 +7,27 @@
   <Folder Name="/samples/">
     <Project Path="samples/Hearth.Samples.Blazor/Hearth.Samples.Blazor.csproj" />
     <Project Path="samples/Hearth.Samples.Console/Hearth.Samples.Console.csproj" />
+    <Project Path="samples/Hearth.Samples.Server/Hearth.Samples.Server.csproj" />
   </Folder>
   <Folder Name="/templates/">
     <Project Path="templates/Hearth.AI.Templates.csproj" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Hearth.AspNetCore/Hearth.AspNetCore.csproj" />
+    <Project Path="src/Hearth.Aspire.Hosting/Hearth.Aspire.Hosting.csproj" />
+    <Project Path="src/Hearth.Aspire/Hearth.Aspire.csproj" />
+    <Project Path="src/Hearth.Blazor/Hearth.Blazor.csproj" />
     <Project Path="src/Hearth.Cuda/Hearth.Cuda.csproj" />
     <Project Path="src/Hearth.Metal/Hearth.Metal.csproj" />
+    <Project Path="src/Hearth.Rag/Hearth.Rag.csproj" />
     <Project Path="src/Hearth.Vulkan/Hearth.Vulkan.csproj" />
     <Project Path="src/Hearth/Hearth.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Hearth.AspNetCore.Tests/Hearth.AspNetCore.Tests.csproj" />
+    <Project Path="tests/Hearth.Aspire.Tests/Hearth.Aspire.Tests.csproj" />
+    <Project Path="tests/Hearth.Blazor.Tests/Hearth.Blazor.Tests.csproj" />
+    <Project Path="tests/Hearth.Rag.Tests/Hearth.Rag.Tests.csproj" />
     <Project Path="tests/Hearth.Tests/Hearth.Tests.csproj" />
   </Folder>
 </Solution>

@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
     /// <param name="configure">Action to configure <see cref="HearthOptions"/>.</param>
-    /// <returns>The <see cref="IServiceCollection"/> for chaining.</returns>
+    /// <returns>An <see cref="IHearthBuilder"/> for chaining add-on registrations (e.g. <c>.AddRag()</c>).</returns>
     /// <example>
     /// <code>
     /// builder.Services.AddHearth(options =>
@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
     /// });
     /// </code>
     /// </example>
-    public static IServiceCollection AddHearth(
+    public static IHearthBuilder AddHearth(
         this IServiceCollection services,
         Action<HearthOptions> configure)
     {
@@ -57,6 +57,6 @@ public static class ServiceCollectionExtensions
             return new LLamaEmbedder(model.Weights, model.CreateEmbeddingParams(), logger);
         });
 
-        return services;
+        return new HearthBuilder(services);
     }
 }

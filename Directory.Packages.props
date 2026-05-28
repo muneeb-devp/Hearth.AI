@@ -8,16 +8,34 @@
     <PackageVersion Include="LLamaSharp" Version="0.21.0" />
     <PackageVersion Include="LLamaSharp.Backend.Cuda12" Version="0.21.0" />
     <PackageVersion Include="LLamaSharp.Backend.Vulkan" Version="0.21.0" />
-    <PackageVersion Include="Microsoft.Extensions.AI" Version="9.5.0" />
-    <PackageVersion Include="Microsoft.Extensions.AI.Abstractions" Version="9.5.0" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Options" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.AI" Version="10.6.0" />
+    <PackageVersion Include="Microsoft.Extensions.AI.Abstractions" Version="10.6.0" />
+    <PackageVersion Include="Microsoft.Extensions.AI.OpenAI" Version="10.6.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Options" Version="10.0.8" />
+    <PackageVersion Include="OpenAI" Version="2.10.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Aspire">
+    <PackageVersion Include="Aspire.Hosting" Version="9.3.0" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.3.0" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="9.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Rag">
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="9.0.5" />
+    <PackageVersion Include="HtmlAgilityPack" Version="1.11.71" />
+  </ItemGroup>
+
+  <ItemGroup Label="Blazor">
+    <PackageVersion Include="Markdig" Version="0.40.0" />
   </ItemGroup>
 
   <ItemGroup Label="Testing">
+    <PackageVersion Include="bunit" Version="1.38.5" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="9.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
