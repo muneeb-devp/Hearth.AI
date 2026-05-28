@@ -433,15 +433,108 @@ Type `exit` or press `Ctrl+C` to quit.
 
 ---
 
-## Blazor Sample
+## Blazor Chat Component
 
-`samples/Hearth.Samples.Blazor` is a Blazor Server streaming chat UI. Tokens appear in the browser as they are generated — no polling, no page reloads.
+`Hearth.AI.Blazor` provides a drop-in streaming chat UI component for Blazor Server and WebAssembly. Install it alongside the base package, register it, and add one line of markup:
+
+```bash
+dotnet add package Hearth.AI.Blazor
+```
+
+```csharp
+// Program.cs
+builder.Services.AddHearth(options => { options.Model = "./models/qwen2.5-7b-q4_k_m.gguf"; });
+builder.Services.AddHearthBlazor();
+```
+
+```razor
+@using Hearth.Blazor.Components
+
+<HearthChat SystemPrompt="You are a helpful assistant." />
+```
+
+The component handles streaming token output, conversation history, Markdown rendering, scroll-to-bottom, cancellation, and four built-in visual themes. See the [Blazor chat component](https://muneeb-devp.github.io/Hearth.AI/articles/blazor-chat.html) guide for the full parameter reference and customization options.
+
+### Blazor sample
+
+`samples/Hearth.Samples.Blazor` shows the component running in a full Blazor Server app:
 
 ```bash
 dotnet run --project samples/Hearth.Samples.Blazor -- ./models/qwen2.5-7b-q4_k_m.gguf
 ```
 
-Then open `http://localhost:5000` in a browser. The app uses `IChatClient.GetStreamingResponseAsync` with `StateHasChanged()` calls on each token so the UI updates in real time over the existing SignalR connection.
+---
+
+## Aspire Integration
+
+Hearth ships two packages for .NET Aspire orchestration:
+
+| Package | Project type | Purpose |
+|---|---|---|
+| `Hearth.AI.Aspire.Hosting` | AppHost | Declares the Hearth inference server as an Aspire resource |
+| `Hearth.AI.Aspire` | Service projects | Registers `IChatClient` from the Aspire-injected connection string |
+
+**AppHost:**
+
+```csharp
+var hearth = builder.AddHearth("ai")
+    .WithModel("Qwen/Qwen2.5-7B-Instruct-GGUF")
+    .WithModelCacheMount("/data/models")
+    .WithGpuAcceleration(35);
+
+builder.AddProject<Projects.MyWebApp>("web")
+    .WithReference(hearth);
+```
+
+**Service project:**
+
+```csharp
+builder.AddHearth("ai");  // reads Aspire connection string, registers IChatClient
+```
+
+Then inject `IChatClient` anywhere — no other changes needed. Aspire handles service discovery and connection string injection automatically. See the [Aspire integration](https://muneeb-devp.github.io/Hearth.AI/articles/aspire.html) guide for the full API reference.
+
+---
+
+## RAG Pipeline
+
+`Hearth.AI.Rag` adds retrieval-augmented generation using the same local embedding model:
+
+```bash
+dotnet add package Hearth.AI.Rag
+```
+
+```csharp
+builder.Services
+    .AddHearth(o => o.Model = "./models/qwen2.5-7b-q4_k_m.gguf")
+    .AddRag(o =>
+    {
+        o.VectorStore = VectorStoreType.Sqlite;
+        o.SqlitePath   = "knowledge.db";
+        o.ChunkSize    = 512;
+    });
+```
+
+Index documents, then ask grounded questions:
+
+```csharp
+public class KnowledgeService(IRagPipeline rag, DocumentLoaderRegistry loaders)
+{
+    public async Task IndexFileAsync(string path, CancellationToken ct = default)
+    {
+        var doc = await loaders.LoadAsync(path, ct);
+        await rag.IndexDocumentAsync(doc, ct);
+    }
+
+    public async Task<string> AskAsync(string question, CancellationToken ct = default)
+    {
+        var result = await rag.AskAsync(question, cancellationToken: ct);
+        return result.Answer;
+    }
+}
+```
+
+Built-in document loaders: plain text, Markdown, HTML. Vector backends: in-memory (default) or SQLite (persistent across restarts). See the [RAG pipeline](https://muneeb-devp.github.io/Hearth.AI/articles/rag.html) guide for chunking strategies, query options, and source inspection.
 
 ---
 
@@ -452,8 +545,11 @@ Then open `http://localhost:5000` in a browser. The app uses `IChatClient.GetStr
 | 1     | Local GGUF inference, `IChatClient`, streaming, console sample                                                                               | ✅ Done |
 | 2     | Hugging Face model downloader — resumable, SHA-verified, progress callbacks; auto-quantization selection; lazy model loading                 | ✅ Done |
 | 3     | Tool/function calling; `IEmbeddingGenerator<string, Embedding<float>>`; per-model-family chat templates                                      | ✅ Done |
-| 4     | `Hearth.AspNetCore` — `MapHearth()` extension; OpenAI-compatible `/v1/chat/completions`, `/v1/embeddings`, `/v1/models`; SSE streaming       | ✅ Done |
-| 5     | Blazor streaming chat sample; GitHub Actions CI/CD; NuGet 1.0 release; GPU backend packages (`Hearth.Cuda`, `Hearth.Metal`, `Hearth.Vulkan`) | ✅ Done |
+| 4     | `Hearth.AI.AspNetCore` — `MapHearth()` extension; OpenAI-compatible `/v1/chat/completions`, `/v1/embeddings`, `/v1/models`; SSE streaming    | ✅ Done |
+| 5     | Blazor streaming chat sample; GitHub Actions CI/CD; NuGet release; GPU backend packages (`Hearth.AI.Cuda`, `Hearth.AI.Metal`, `Hearth.AI.Vulkan`) | ✅ Done |
+| 6     | `Hearth.AI.Aspire.Hosting` + `Hearth.AI.Aspire` — Aspire orchestration; `samples/Hearth.Samples.Server` inference server; GHCR Docker publish | ✅ Done |
+| 7     | `Hearth.AI.Rag` — RAG pipeline; `RecursiveChunker` + `MarkdownChunker`; plain-text, Markdown, HTML loaders; in-memory and SQLite vector stores | ✅ Done |
+| 8     | `Hearth.AI.Blazor` — `HearthChat` streaming component; Markdown rendering; four themes; `IAsyncDisposable` JS interop cleanup               | ✅ Done |
 
 ---
 

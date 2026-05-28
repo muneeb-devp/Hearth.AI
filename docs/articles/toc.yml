@@ -4,6 +4,12 @@
   href: configuration.md
 - name: ASP.NET Core integration
   href: aspnetcore.md
+- name: Aspire integration
+  href: aspire.md
+- name: RAG pipeline
+  href: rag.md
+- name: Blazor chat component
+  href: blazor-chat.md
 - name: GPU backends
   href: gpu-backends.md
 - name: Samples

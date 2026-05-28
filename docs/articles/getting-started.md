@@ -66,3 +66,6 @@ await foreach (var update in chat.GetStreamingResponseAsync(
 - Review [Configuration](configuration.md) to tune context size, threading, and model download behavior.
 - Review [GPU backends](gpu-backends.md) if you want hardware acceleration.
 - Review [ASP.NET Core integration](aspnetcore.md) if you want OpenAI-compatible `/v1` endpoints.
+- Review [Aspire integration](aspire.md) to orchestrate the inference server with .NET Aspire.
+- Review [RAG pipeline](rag.md) to add document retrieval and grounded answers.
+- Review [Blazor chat component](blazor-chat.md) to embed a streaming chat UI in a Blazor app.
