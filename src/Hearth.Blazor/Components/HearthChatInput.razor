@@ -1,0 +1,49 @@
+@namespace Hearth.Blazor.Components
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="hearth-input-area">
+    <textarea class="hearth-input"
+              @bind="_text"
+              @onkeydown="HandleKeyDownAsync"
+              placeholder="@Placeholder"
+              rows="1"
+              disabled="@IsStreaming"
+              aria-label="Message input"></textarea>
+    <button class="hearth-send-btn"
+            @onclick="SendAsync"
+            disabled="@(IsStreaming || string.IsNullOrWhiteSpace(_text))"
+            aria-label="Send message">
+        @if (IsStreaming)
+        {
+            <span class="hearth-spinner" aria-hidden="true"></span>
+        }
+        else
+        {
+            <span>&#9658;</span>
+        }
+    </button>
+</div>
+
+@code {
+    [Parameter] public string Placeholder { get; set; } = "Ask me anything…";
+    [Parameter] public bool IsStreaming { get; set; }
+    [Parameter] public EventCallback<string> OnSend { get; set; }
+
+    private string _text = string.Empty;
+
+    private async Task HandleKeyDownAsync(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !e.ShiftKey && !IsStreaming && !string.IsNullOrWhiteSpace(_text))
+        {
+            await SendAsync();
+        }
+    }
+
+    private async Task SendAsync()
+    {
+        var text = _text.Trim();
+        if (string.IsNullOrEmpty(text) || IsStreaming) return;
+        _text = string.Empty;
+        await OnSend.InvokeAsync(text);
+    }
+}

@@ -1,0 +1,36 @@
+@namespace Hearth.Blazor.Components
+@inject IChatClient ChatClient
+@inject IJSRuntime JS
+
+<div class="hearth-chat hearth-theme-@Theme.ToString().ToLower()">
+    <div class="hearth-messages" @ref="_messagesContainer">
+        @if (!_entries.Any())
+        {
+            <div class="hearth-empty-state">
+                @if (EmptyStateContent is not null)
+                {
+                    @EmptyStateContent
+                }
+                else
+                {
+                    <p>Start a conversation.</p>
+                }
+            </div>
+        }
+        @foreach (var entry in _entries)
+        {
+            @if (MessageTemplate is not null)
+            {
+                @MessageTemplate(entry)
+            }
+            else
+            {
+                <HearthChatMessage Entry="@entry" EnableMarkdown="@EnableMarkdown" />
+            }
+        }
+    </div>
+
+    <HearthChatInput Placeholder="@Placeholder"
+                     IsStreaming="@_isStreaming"
+                     OnSend="@HandleSendAsync" />
+</div>

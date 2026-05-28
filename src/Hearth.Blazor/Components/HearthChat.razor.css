@@ -1,0 +1,175 @@
+.hearth-chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: system-ui, sans-serif;
+}
+
+.hearth-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.hearth-empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.hearth-message {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    max-width: 85%;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.hearth-message-user {
+    background: #2563eb;
+    color: white;
+    align-self: flex-end;
+}
+
+.hearth-message-assistant {
+    background: #f1f5f9;
+    color: #0f172a;
+    align-self: flex-start;
+}
+
+/* Dark theme */
+.hearth-theme-dark {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.hearth-theme-dark .hearth-message-assistant {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+.hearth-theme-dark .hearth-empty-state {
+    color: #475569;
+}
+
+/* Light theme */
+.hearth-theme-light .hearth-message-assistant {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+}
+
+/* Minimal theme */
+.hearth-theme-minimal .hearth-message {
+    border-radius: 0;
+    background: transparent;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    max-width: 100%;
+}
+
+.hearth-theme-minimal .hearth-message-user {
+    color: #2563eb;
+}
+
+/* Streaming cursor */
+.hearth-cursor::after {
+    content: '▍';
+    animation: hearth-blink 0.8s step-end infinite;
+}
+
+@keyframes hearth-blink {
+    50% { opacity: 0; }
+}
+
+/* Input area */
+.hearth-input-area {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #e2e8f0;
+    align-items: flex-end;
+}
+
+.hearth-theme-dark .hearth-input-area {
+    border-top-color: #1e293b;
+}
+
+.hearth-input {
+    flex: 1;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: none;
+    outline: none;
+    background: #ffffff;
+    color: #0f172a;
+    line-height: 1.5;
+    max-height: 8rem;
+    overflow-y: auto;
+}
+
+.hearth-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.hearth-input:disabled {
+    background: #f8fafc;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.hearth-theme-dark .hearth-input {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+.hearth-theme-dark .hearth-input:focus {
+    border-color: #3b82f6;
+}
+
+.hearth-send-btn {
+    padding: 0.625rem 1rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.hearth-send-btn:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+.hearth-send-btn:disabled {
+    background: #93c5fd;
+    cursor: not-allowed;
+}
+
+/* Spinner */
+.hearth-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: hearth-spin 0.6s linear infinite;
+}
+
+@keyframes hearth-spin {
+    to { transform: rotate(360deg); }
+}

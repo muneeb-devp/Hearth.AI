@@ -1,0 +1,29 @@
+@namespace Hearth.Blazor.Components
+@using Markdig
+
+<div class="hearth-message hearth-message-@Entry.Role.Value.ToLower()">
+    @if (EnableMarkdown)
+    {
+        @((MarkupString)RenderMarkdown(Entry.Content))
+    }
+    else
+    {
+        @Entry.Content
+    }
+    @if (Entry.IsStreaming)
+    {
+        <span class="hearth-cursor" aria-hidden="true"></span>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public required ChatEntry Entry { get; set; }
+    [Parameter] public bool EnableMarkdown { get; set; } = true;
+
+    private static readonly MarkdownPipeline Pipeline = new MarkdownPipelineBuilder()
+        .UseAdvancedExtensions()
+        .Build();
+
+    private static string RenderMarkdown(string md) =>
+        string.IsNullOrEmpty(md) ? string.Empty : Markdown.ToHtml(md, Pipeline);
+}
